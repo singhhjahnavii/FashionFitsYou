@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — FashionFitsYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/products.js"></script>
+
+  <main class="page-content">
+    <div class="container container--wide">
+
+      <!-- Breadcrumb -->
+      <div id="breadcrumb" style="margin-bottom:var(--space-5)">
+        <nav class="breadcrumb">
+          <div class="breadcrumb__item"><a class="breadcrumb__link" href="home.html">Home</a></div>
+          <div class="breadcrumb__item"><span class="breadcrumb__separator">/</span><span class="breadcrumb__current" id="page-title">All Products</span></div>
+        </nav>
+      </div>
+
+      <!-- Gender tabs -->
+      <div class="gender-tabs">
+        <button class="gender-tab" data-gender="">All</button>
+        <button class="gender-tab" data-gender="men">Men</button>
+        <button class="gender-tab" data-gender="women">Women</button>
+        <button class="gender-tab" data-gender="kids">Kids</button>
+      </div>
+
+      <!-- Active filter pills -->
+      <div id="active-filters"></div>
+
+      <!-- Mobile filter bar -->
+      <div class="filter-mobile-bar">
+        <button id="open-filters-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/>
+          </svg>
+          Filters
+        </button>
+        <span class="result-count" id="result-count"></span>
+      </div>
+
+      <div class="products-layout">
+
+        <!-- Sidebar filters -->
+        <aside class="filter-sidebar" id="filter-sidebar">
+          <div class="filter-sidebar__header">
+            <h3 style="font-family:var(--font-display);font-size:var(--text-xl)">Filters</h3>
+            <button id="close-filters-btn" style="background:none;border:none;font-size:var(--text-xl);cursor:pointer">✕</button>
+          </div>
+
+          <form id="filter-form">
+
+            <!-- Categories loaded by JS -->
+            <div id="sidebar-categories"></div>
+
+            <!-- Price range -->
+            <div class="filter-group">
+              <div class="filter-group__header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <span class="filter-group__title">Price Range</span>
+                <span class="filter-group__toggle">›</span>
+              </div>
+              <div class="filter-group__body">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+                  <div class="form-group">
+                    <label class="form-label">Min (₹)</label>
+                    <input class="form-input" name="minPrice" type="number" min="0" placeholder="0"
+                           style="padding:0.5rem 0.75rem;font-size:var(--text-sm)">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Max (₹)</label>
+                    <input class="form-input" name="maxPrice" type="number" min="0" placeholder="Any"
+                           style="padding:0.5rem 0.75rem;font-size:var(--text-sm)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="filter-group">
+              <div class="filter-group__header" onclick="this.parentElement.classList.toggle('collapsed')">
+                <span class="filter-group__title">Collection</span>
+                <span class="filter-group__toggle">›</span>
+              </div>
+              <div class="filter-group__body">
+                <label class="filter-option"><input type="radio" name="tags" value="">All</label>
+                <label class="filter-option"><input type="radio" name="tags" value="new">New Arrivals</label>
+                <label class="filter-option"><input type="radio" name="tags" value="trending">Trending</label>
+                <label class="filter-option"><input type="radio" name="tags" value="bestseller">Bestsellers</label>
+                <label class="filter-option"><input type="radio" name="tags" value="sale">On Sale</label>
+              </div>
+            </div>
+
+            <button type="button" id="clear-filters-btn" class="btn btn-ghost btn-sm btn-full" style="margin-top:var(--space-4)">
+              Clear All Filters
+            </button>
+          </form>
+        </aside>
+
+        <!-- Main content -->
+        <div class="products-main">
+
+          <!-- Toolbar -->
+          <div class="products-toolbar">
+            <div class="products-toolbar__left">
+              <span class="result-count hide-mobile" id="result-count-desktop"></span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-3)">
+              <label style="font-size:var(--text-sm);color:var(--color-ink-muted)">Sort:</label>
+              <select id="sort-select" aria-label="Sort products">
+                <option value="newest">Newest First</option>
+                <option value="price_asc">Price: Low to High</option>
+                <option value="price_desc">Price: High to Low</option>
+                <option value="rating">Best Rated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product grid -->
+          <div id="products-grid"></div>
+
+          <!-- Pagination -->
+          <div id="pagination"></div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <span class="footer__logo">FashionFitsYou</span>
+          <span class="footer__tagline">Style. Fit. You.</span>
+          <p class="footer__desc">Curated fashion for everyone.</p>
+        </div>
+        <div class="footer__col"><h4>Shop</h4><ul>
+          <li><a href="products.html?gender=men">Men</a></li>
+          <li><a href="products.html?gender=women">Women</a></li>
+          <li><a href="products.html?gender=kids">Kids</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Help</h4><ul>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Account</h4><ul>
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul></div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2025 FashionFitsYou</span>
+        <div class="footer__payments">
+          <span class="footer__payment-badge">Razorpay</span>
+          <span class="footer__payment-badge">COD</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mirror result count to desktop label too
+    const observer = new MutationObserver(() => {
+      const el = document.getElementById('result-count');
+      const d  = document.getElementById('result-count-desktop');
+      if (el && d) d.textContent = el.textContent;
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = document.getElementById('result-count');
+      if (el) observer.observe(el, { childList: true, characterData: true, subtree: true });
+    });
+  </script>
+
+</body>
+</html>

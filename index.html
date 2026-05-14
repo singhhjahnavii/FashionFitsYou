@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FashionFitsYou — Style. Fit. You.</title>
+  <meta name="description" content="Shop the latest fashion for men, women and kids. Clothing, shoes, bags, watches and accessories.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="frontend/css/global.css">
+  <link rel="stylesheet" href="frontend/css/components.css">
+  <link rel="stylesheet" href="frontend/css/pages.css">
+  <style>
+    /* index.html lives at root, pages are in /frontend/pages/ */
+    .navbar__logo[href], .navbar a[href^="home"], .cart-drawer a[href] {
+      /* links inside navbar.js are relative to /frontend/pages/ — fix for root */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar injected by navbar.js (paths adjusted below) -->
+  <script>
+    // Override base path for root-level index.html
+    window.__FFY_BASE__ = 'frontend/pages/';
+  </script>
+  <script src="frontend/js/navbar.js"></script>
+  <script src="frontend/js/api.js"></script>
+  <script src="frontend/js/auth.js"></script>
+  <script src="frontend/js/utils.js"></script>
+  <script src="frontend/js/cart.js"></script>
+
+  <!-- ── Promo Strip ── -->
+  <div class="promo-strip" style="margin-top:var(--navbar-height)">
+    <div class="container">
+      <div class="promo-strip__track">
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Free shipping on orders above ₹999</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> 30-day easy returns</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Authentic products guaranteed</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> New arrivals every week</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Use code WELCOME10 for 10% off</span>
+        <!-- duplicate for seamless loop -->
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Free shipping on orders above ₹999</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> 30-day easy returns</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Authentic products guaranteed</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> New arrivals every week</span>
+        <span class="promo-strip__item"><span class="promo-strip__dot">★</span> Use code WELCOME10 for 10% off</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Hero Slider ── -->
+  <section class="landing-hero">
+    <div class="hero-slides" id="hero-slides">
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=1600&q=80')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+
+    <div class="container container--wide" style="position:relative;z-index:1">
+      <div class="hero-content">
+        <p class="hero-eyebrow">New Season 2025</p>
+        <h1 class="hero-title">Fashion That<br><em>Fits You</em></h1>
+        <p class="hero-subtitle">Discover curated collections for men, women and kids. Every style, every occasion.</p>
+        <div class="hero-actions">
+          <a href="frontend/pages/products.html" class="btn btn-gold btn-lg">Shop Now</a>
+          <a href="frontend/pages/products.html?tags=new" class="btn btn-outline btn-lg" style="color:#fff;border-color:rgba(255,255,255,0.5)">New Arrivals</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dots" id="hero-dots">
+      <button class="hero-dot active" onclick="setSlide(0)" aria-label="Slide 1"></button>
+      <button class="hero-dot"        onclick="setSlide(1)" aria-label="Slide 2"></button>
+      <button class="hero-dot"        onclick="setSlide(2)" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <!-- ── Features row ── -->
+  <div class="container" style="padding-top:var(--space-16)">
+    <div class="features-row">
+      <div class="feature-item">
+        <div class="feature-icon">🚚</div>
+        <span class="feature-title">Free Delivery</span>
+        <span class="feature-desc">On all orders above ₹999</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">↩️</div>
+        <span class="feature-title">Easy Returns</span>
+        <span class="feature-desc">30-day hassle-free returns</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">✅</div>
+        <span class="feature-title">100% Authentic</span>
+        <span class="feature-desc">Genuine products only</span>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <span class="feature-title">Secure Payments</span>
+        <span class="feature-desc">Razorpay & COD available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Shop by Category ── -->
+  <section style="padding:var(--space-20) 0">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Shop by <span>Category</span></h2>
+          <p class="section-subtitle">From everyday essentials to statement pieces</p>
+        </div>
+        <a href="frontend/pages/products.html" class="section-link">View All →</a>
+      </div>
+      <div class="category-grid">
+        <a href="frontend/pages/products.html?gender=men" class="category-card">
+          <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&q=80" alt="Men" loading="lazy">
+          <div class="category-card__overlay"></div>
+          <div class="category-card__label">
+            <span class="category-card__name">Men</span>
+            <span class="category-card__cta">Shop Now →</span>
+          </div>
+        </a>
+        <a href="frontend/pages/products.html?gender=women" class="category-card">
+          <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=80" alt="Women" loading="lazy">
+          <div class="category-card__overlay"></div>
+          <div class="category-card__label">
+            <span class="category-card__name">Women</span>
+            <span class="category-card__cta">Shop Now →</span>
+          </div>
+        </a>
+        <a href="frontend/pages/products.html?gender=kids" class="category-card">
+          <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=600&q=80" alt="Kids" loading="lazy">
+          <div class="category-card__overlay"></div>
+          <div class="category-card__label">
+            <span class="category-card__name">Kids</span>
+            <span class="category-card__cta">Shop Now →</span>
+          </div>
+        </a>
+        <a href="frontend/pages/products.html?tags=sale" class="category-card">
+          <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?w=600&q=80" alt="Sale" loading="lazy">
+          <div class="category-card__overlay"></div>
+          <div class="category-card__label">
+            <span class="category-card__name">Sale</span>
+            <span class="category-card__cta">Up to 50% off →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trending Products ── -->
+  <section class="home-section home-section--alt">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Trending <span>Now</span></h2>
+        </div>
+        <a href="frontend/pages/products.html?tags=trending" class="section-link">See All →</a>
+      </div>
+      <div id="trending-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
+        <!-- Loaded by JS -->
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Split Banner ── -->
+  <section style="padding:var(--space-20) 0">
+    <div class="container">
+      <div class="split-banner">
+        <a href="frontend/pages/products.html?gender=men&category=men-bags-gym" class="split-card">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80" alt="Men's Bags" loading="lazy">
+          <div class="split-card__overlay"></div>
+          <div class="split-card__content">
+            <span class="split-card__label">Men's Bags</span>
+            <span class="split-card__sub">Backpacks · Wallets · Gym Bags</span>
+          </div>
+        </a>
+        <a href="frontend/pages/products.html?gender=women&category=women-accessories-earrings" class="split-card">
+          <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80" alt="Women's Accessories" loading="lazy">
+          <div class="split-card__overlay"></div>
+          <div class="split-card__content">
+            <span class="split-card__label">Women's Jewellery</span>
+            <span class="split-card__sub">Earrings · Rings · Necklaces · Bangles</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── New Arrivals ── -->
+  <section class="home-section home-section--alt">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">New <span>Arrivals</span></h2>
+        </div>
+        <a href="frontend/pages/products.html?tags=new" class="section-link">See All →</a>
+      </div>
+      <div id="new-arrivals-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-5)">
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <span class="footer__logo">FashionFitsYou</span>
+          <span class="footer__tagline">Style. Fit. You.</span>
+          <p class="footer__desc">Your one-stop destination for curated fashion — clothing, shoes, bags, watches and accessories for the whole family.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Instagram">📸</a>
+            <a href="#" class="footer__social-link" aria-label="Facebook">👤</a>
+            <a href="#" class="footer__social-link" aria-label="Twitter">🐦</a>
+            <a href="#" class="footer__social-link" aria-label="YouTube">▶️</a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="frontend/pages/products.html?gender=men">Men</a></li>
+            <li><a href="frontend/pages/products.html?gender=women">Women</a></li>
+            <li><a href="frontend/pages/products.html?gender=kids">Kids</a></li>
+            <li><a href="frontend/pages/products.html?tags=new">New Arrivals</a></li>
+            <li><a href="frontend/pages/products.html?tags=sale">Sale</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Sitemap</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>© 2025 FashionFitsYou. All rights reserved.</span>
+        <div class="footer__payments">
+          <span class="footer__payment-badge">Razorpay</span>
+          <span class="footer__payment-badge">UPI</span>
+          <span class="footer__payment-badge">Visa</span>
+          <span class="footer__payment-badge">Mastercard</span>
+          <span class="footer__payment-badge">COD</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hero slider
+    let slideIdx = 0;
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots   = document.querySelectorAll('.hero-dot');
+    function setSlide(n) {
+      slides[slideIdx].classList.remove('active');
+      dots[slideIdx].classList.remove('active');
+      slideIdx = n;
+      slides[slideIdx].classList.add('active');
+      dots[slideIdx].classList.add('active');
+    }
+    setInterval(() => setSlide((slideIdx + 1) % slides.length), 5000);
+
+    // Load trending & new arrivals
+    async function loadHomeProducts() {
+      try {
+        const [trending, newArrivals] = await Promise.all([
+          api.products.list({ tags: 'trending', limit: 4 }),
+          api.products.list({ tags: 'new',      limit: 4 }),
+        ]);
+        document.getElementById('trending-grid').innerHTML =
+          (trending.products || []).map(p => renderProductCard(p)).join('') ||
+          '<p style="color:var(--color-ink-muted);grid-column:1/-1">No trending products yet.</p>';
+        document.getElementById('new-arrivals-grid').innerHTML =
+          (newArrivals.products || []).map(p => renderProductCard(p)).join('') ||
+          '<p style="color:var(--color-ink-muted);grid-column:1/-1">No new arrivals yet.</p>';
+      } catch { /* silently fail — show skeletons */ }
+    }
+    document.addEventListener('DOMContentLoaded', loadHomeProducts);
+  </script>
+</body>
+</html>

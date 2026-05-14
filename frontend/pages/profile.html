@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile — FashionFitsYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/cart.js"></script>
+
+  <main class="page-content">
+    <div class="container">
+      <div class="profile-layout">
+
+        <!-- Sidebar -->
+        <aside class="profile-sidebar">
+          <div class="profile-avatar-block">
+            <div class="profile-avatar" id="sidebar-avatar">?</div>
+            <div class="profile-name"  id="sidebar-name">Loading…</div>
+            <div class="profile-email" id="sidebar-email"></div>
+          </div>
+          <nav class="profile-nav">
+            <button class="profile-nav-link active" data-tab="details" onclick="showTab('details', this)">👤 Personal Details</button>
+            <button class="profile-nav-link"        data-tab="addresses" onclick="showTab('addresses', this)">📍 Saved Addresses</button>
+            <button class="profile-nav-link"        data-tab="wishlist"  onclick="showTab('wishlist', this)">❤️ Wishlist</button>
+            <button class="profile-nav-link"        onclick="window.location.href='orders.html'">📦 My Orders</button>
+            <button class="profile-nav-link" style="color:var(--color-error)" data-auth-logout>🚪 Sign Out</button>
+          </nav>
+        </aside>
+
+        <!-- Main content -->
+        <div class="profile-content">
+
+          <!-- ── Personal Details ── -->
+          <div class="profile-section" id="tab-details">
+            <div class="profile-section__header">
+              <h2 class="profile-section__title">Personal Details</h2>
+              <button class="btn btn-outline btn-sm" id="edit-btn" onclick="toggleEdit()">Edit</button>
+            </div>
+
+            <form class="profile-form" id="profile-form" onsubmit="saveProfile(event)">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-input" name="full_name" id="pf-name" disabled>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" name="email" id="pf-email" disabled type="email">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input class="form-input" name="phone" id="pf-phone" disabled type="tel" placeholder="Add phone number">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-select" name="gender" id="pf-gender" disabled>
+                  <option value="">Prefer not to say</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Date of Birth</label>
+                <input class="form-input" name="date_of_birth" id="pf-dob" disabled type="date">
+              </div>
+              <div class="full-width" id="save-actions" style="display:none;gap:var(--space-3)">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-ghost" onclick="toggleEdit(true)">Cancel</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ── Addresses ── -->
+          <div class="profile-section" id="tab-addresses" style="display:none">
+            <div class="profile-section__header">
+              <h2 class="profile-section__title">Saved Addresses</h2>
+              <button class="btn btn-outline btn-sm" onclick="showAddAddressModal()">+ Add New</button>
+            </div>
+            <div id="address-cards">
+              <div class="skeleton" style="height:120px;border-radius:var(--radius-md);margin-bottom:var(--space-4)"></div>
+            </div>
+          </div>
+
+          <!-- ── Wishlist ── -->
+          <div class="profile-section" id="tab-wishlist" style="display:none">
+            <div class="profile-section__header">
+              <h2 class="profile-section__title">My Wishlist</h2>
+            </div>
+            <div class="wishlist-grid" id="wishlist-grid">
+              <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+              <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+              <div class="skeleton" style="aspect-ratio:3/4;border-radius:var(--radius-md)"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><span class="footer__logo">FashionFitsYou</span><span class="footer__tagline">Style. Fit. You.</span></div>
+        <div class="footer__col"><h4>Shop</h4><ul><li><a href="products.html?gender=men">Men</a></li><li><a href="products.html?gender=women">Women</a></li></ul></div>
+        <div class="footer__col"><h4>Help</h4><ul><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div class="footer__col"><h4>Account</h4><ul><li><a href="orders.html">Orders</a></li></ul></div>
+      </div>
+      <div class="footer__bottom"><span>© 2025 FashionFitsYou</span></div>
+    </div>
+  </footer>
+
+  <script>
+    let profileData = null;
+    let addressData = [];
+    let editing = false;
+
+    // ── Tab switching ────────────────────────────────────────
+    function showTab(name, btn) {
+      document.querySelectorAll('.profile-section').forEach(s => s.style.display = 'none');
+      document.querySelectorAll('.profile-nav-link').forEach(b => b.classList.remove('active'));
+      document.getElementById(`tab-${name}`).style.display = 'block';
+      btn?.classList.add('active');
+      if (name === 'addresses' && !addressData.length) loadAddresses();
+      if (name === 'wishlist') loadWishlist();
+      history.replaceState(null, '', `#${name}`);
+    }
+
+    // ── Load profile ─────────────────────────────────────────
+    async function loadProfile() {
+      if (!auth.requireAuth()) return;
+      try {
+        profileData = await api.user.getProfile();
+        document.getElementById('pf-name').value     = profileData.full_name  || '';
+        document.getElementById('pf-email').value    = profileData.email       || '';
+        document.getElementById('pf-phone').value    = profileData.phone       || '';
+        document.getElementById('pf-gender').value   = profileData.gender      || '';
+        document.getElementById('pf-dob').value      = profileData.date_of_birth?.split('T')[0] || '';
+        // Sidebar
+        const initials = (profileData.full_name || 'U').split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+        document.getElementById('sidebar-avatar').textContent = initials;
+        document.getElementById('sidebar-name').textContent   = profileData.full_name || 'User';
+        document.getElementById('sidebar-email').textContent  = profileData.email || '';
+      } catch (e) { toast.show('Failed to load profile', 'error'); }
+    }
+
+    // ── Edit toggle ──────────────────────────────────────────
+    function toggleEdit(cancel = false) {
+      editing = !cancel && !editing;
+      document.querySelectorAll('#profile-form input, #profile-form select').forEach(el => {
+        if (el.name !== 'email') el.disabled = !editing;
+      });
+      document.getElementById('save-actions').style.display = editing ? 'flex' : 'none';
+      document.getElementById('edit-btn').textContent = editing ? 'Cancel' : 'Edit';
+      if (cancel && profileData) {
+        document.getElementById('pf-name').value   = profileData.full_name  || '';
+        document.getElementById('pf-phone').value  = profileData.phone      || '';
+        document.getElementById('pf-gender').value = profileData.gender     || '';
+        document.getElementById('pf-dob').value    = profileData.date_of_birth?.split('T')[0] || '';
+      }
+    }
+
+    // ── Save profile ─────────────────────────────────────────
+    async function saveProfile(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn  = form.querySelector('[type=submit]');
+      btn.disabled = true; btn.textContent = 'Saving…';
+      try {
+        profileData = await api.user.updateProfile({
+          full_name:     form.querySelector('[name=full_name]').value,
+          phone:         form.querySelector('[name=phone]').value,
+          gender:        form.querySelector('[name=gender]').value,
+          date_of_birth: form.querySelector('[name=date_of_birth]').value || null,
+        });
+        toast.show('Profile updated!', 'success');
+        toggleEdit(true);
+        editing = false;
+        document.getElementById('sidebar-name').textContent = profileData.full_name;
+      } catch (err) {
+        toast.show(err.message, 'error');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Save Changes';
+      }
+    }
+
+    // ── Addresses ────────────────────────────────────────────
+    async function loadAddresses() {
+      const container = document.getElementById('address-cards');
+      try {
+        addressData = await api.user.getAddresses() || [];
+        if (!addressData.length) {
+          container.innerHTML = `<div class="empty-state" style="padding:var(--space-10) 0">
+            <div class="empty-state__icon">📍</div>
+            <p class="empty-state__title" style="font-size:var(--text-xl)">No addresses saved</p>
+            <p class="empty-state__text">Add an address to speed up checkout</p>
+          </div>`;
+          return;
+        }
+        container.innerHTML = addressData.map(addr => `
+          <div class="address-card ${addr.is_default ? 'default' : ''}" id="addr-${addr.id}">
+            ${addr.is_default ? '<span class="badge badge-gold" style="margin-bottom:var(--space-2)">Default</span>' : ''}
+            <div style="font-weight:var(--weight-medium)">${addr.full_name} &nbsp;<span class="badge badge-ink" style="font-size:0.6rem">${addr.label}</span></div>
+            <div style="font-size:var(--text-sm);color:var(--color-ink-secondary);margin-top:var(--space-1)">${addr.line1}${addr.line2 ? ', ' + addr.line2 : ''}</div>
+            <div style="font-size:var(--text-sm);color:var(--color-ink-secondary)">${addr.city}, ${addr.state} — ${addr.pincode}</div>
+            <div style="font-size:var(--text-sm);color:var(--color-ink-muted)">📞 ${addr.phone}</div>
+            <div class="address-card__actions">
+              ${!addr.is_default ? `<button class="btn btn-ghost btn-sm" onclick="setDefault('${addr.id}')">Set Default</button>` : ''}
+              <button class="btn btn-ghost btn-sm" style="color:var(--color-error)" onclick="deleteAddress('${addr.id}')">Delete</button>
+            </div>
+          </div>`).join('');
+      } catch (e) { container.innerHTML = '<p style="color:var(--color-error)">Failed to load addresses.</p>'; }
+    }
+
+    async function setDefault(id) {
+      try {
+        await api.user.updateAddress(id, { is_default: true });
+        toast.show('Default address updated', 'success');
+        loadAddresses();
+      } catch (e) { toast.show(e.message, 'error'); }
+    }
+
+    async function deleteAddress(id) {
+      if (!confirm('Delete this address?')) return;
+      try {
+        await api.user.deleteAddress(id);
+        toast.show('Address deleted', 'success');
+        addressData = addressData.filter(a => a.id !== id);
+        loadAddresses();
+      } catch (e) { toast.show(e.message, 'error'); }
+    }
+
+    function showAddAddressModal() {
+      const modal = document.createElement('div');
+      modal.className = 'modal-backdrop';
+      modal.id = 'addr-modal';
+      modal.innerHTML = `
+        <div class="modal">
+          <div class="modal__header">
+            <h3 class="modal__title">Add New Address</h3>
+            <button class="modal__close" onclick="document.getElementById('addr-modal').remove()">✕</button>
+          </div>
+          <div class="modal__body">
+            <form id="addr-form" onsubmit="submitAddress(event)" style="display:flex;flex-direction:column;gap:var(--space-4)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+                <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" name="full_name" required></div>
+                <div class="form-group"><label class="form-label">Phone *</label><input class="form-input" name="phone" required type="tel"></div>
+              </div>
+              <div class="form-group"><label class="form-label">Address Line 1 *</label><input class="form-input" name="line1" required placeholder="House no., Street, Area"></div>
+              <div class="form-group"><label class="form-label">Landmark</label><input class="form-input" name="line2" placeholder="Optional"></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-3)">
+                <div class="form-group"><label class="form-label">City *</label><input class="form-input" name="city" required></div>
+                <div class="form-group"><label class="form-label">State *</label><input class="form-input" name="state" required></div>
+                <div class="form-group"><label class="form-label">Pincode *</label><input class="form-input" name="pincode" required maxlength="6" pattern="[0-9]{6}"></div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+                <div class="form-group"><label class="form-label">Label</label>
+                  <select class="form-select" name="label"><option>Home</option><option>Work</option><option>Other</option></select>
+                </div>
+              </div>
+              <label style="display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);cursor:pointer">
+                <input type="checkbox" name="is_default" style="accent-color:var(--color-gold)"> Set as default
+              </label>
+              <div style="display:flex;gap:var(--space-3);justify-content:flex-end">
+                <button type="button" class="btn btn-ghost" onclick="document.getElementById('addr-modal').remove()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Address</button>
+              </div>
+            </form>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+      modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    }
+
+    async function submitAddress(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn  = form.querySelector('[type=submit]');
+      btn.disabled = true; btn.textContent = 'Saving…';
+      const body = Object.fromEntries(new FormData(form));
+      body.is_default = !!form.querySelector('[name=is_default]').checked;
+      try {
+        await api.user.addAddress(body);
+        toast.show('Address saved!', 'success');
+        document.getElementById('addr-modal').remove();
+        addressData = [];
+        loadAddresses();
+      } catch (err) {
+        toast.show(err.message, 'error');
+        btn.disabled = false; btn.textContent = 'Save Address';
+      }
+    }
+
+    // ── Wishlist ─────────────────────────────────────────────
+    async function loadWishlist() {
+      const grid = document.getElementById('wishlist-grid');
+      try {
+        const items = await api.user.getWishlist() || [];
+        if (!items.length) {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:var(--space-10) 0">
+            <div class="empty-state__icon">❤️</div>
+            <p class="empty-state__title" style="font-size:var(--text-xl)">Nothing saved yet</p>
+            <p class="empty-state__text">Heart products while browsing to save them here</p>
+            <a href="products.html" class="btn btn-primary btn-sm mt-4">Browse Products</a>
+          </div>`;
+          return;
+        }
+        // Update local wishlist state
+        wishlist._ids = new Set(items.map(i => i.product_id || i.product?.id));
+        localStorage.setItem('ffy_wishlist', JSON.stringify([...wishlist._ids]));
+        grid.innerHTML = items.map(i => renderProductCard(i.product)).join('');
+      } catch (e) { grid.innerHTML = '<p style="color:var(--color-error);grid-column:1/-1">Failed to load wishlist.</p>'; }
+    }
+
+    // ── Init ─────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      loadProfile();
+      // Check URL hash for initial tab
+      const hash = window.location.hash.replace('#', '');
+      if (['addresses', 'wishlist', 'details'].includes(hash)) {
+        const btn = document.querySelector(`[data-tab="${hash}"]`);
+        showTab(hash, btn);
+      }
+    });
+  </script>
+
+</body>
+</html>

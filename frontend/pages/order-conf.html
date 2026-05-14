@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed — FashionFitsYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/cart.js"></script>
+
+  <main class="page-content">
+    <div class="confirmation-page">
+      <div class="confirmation-card">
+
+        <!-- Animated checkmark -->
+        <div class="confirmation-icon" id="confirm-icon">✓</div>
+
+        <h1 class="confirmation-title">Order Placed!</h1>
+        <p style="color:var(--color-ink-secondary);font-size:var(--text-base)">
+          Thank you for shopping with FashionFitsYou
+        </p>
+
+        <div class="confirmation-number" id="order-number-display">
+          Loading…
+        </div>
+
+        <p style="color:var(--color-ink-muted);font-size:var(--text-sm);margin-top:var(--space-3)">
+          A confirmation email has been sent to your registered email address.
+          Your order will be delivered within 5–7 business days.
+        </p>
+
+        <!-- Delivery estimate -->
+        <div style="background:var(--color-bg-alt);border-radius:var(--radius-md);padding:var(--space-4) var(--space-5);margin:var(--space-6) 0;text-align:left">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3)">
+            <span style="font-size:var(--text-sm);color:var(--color-ink-muted)">Order Status</span>
+            <span class="badge badge-success">Confirmed</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:var(--text-sm);color:var(--color-ink-muted)">Estimated Delivery</span>
+            <span style="font-size:var(--text-sm);font-weight:var(--weight-semibold)" id="est-delivery"></span>
+          </div>
+        </div>
+
+        <div class="confirmation-actions">
+          <a href="orders.html" class="btn btn-outline">Track Order</a>
+          <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const p      = new URLSearchParams(window.location.search);
+      const id     = p.get('id');
+      const number = p.get('number');
+
+      // Show order number
+      const numEl = document.getElementById('order-number-display');
+      if (number) {
+        numEl.textContent = number;
+      } else if (id) {
+        numEl.textContent = `Order #${id.slice(0, 8).toUpperCase()}`;
+      } else {
+        numEl.textContent = 'Your Order';
+      }
+
+      // Estimated delivery
+      const est = new Date(Date.now() + 6 * 24 * 60 * 60 * 1000);
+      document.getElementById('est-delivery').textContent = est.toLocaleDateString('en-IN', {
+        weekday: 'short', day: 'numeric', month: 'short'
+      });
+
+      // Link order tracking
+      if (id) {
+        document.querySelector('a[href="orders.html"]').href = `orders.html?id=${id}`;
+      }
+
+      // Clear coupon from session
+      sessionStorage.removeItem('ffy_coupon');
+
+      // Confetti-style icon animation
+      const icon = document.getElementById('confirm-icon');
+      icon.style.transform  = 'scale(0)';
+      icon.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      setTimeout(() => { icon.style.transform = 'scale(1)'; }, 100);
+    });
+  </script>
+
+</body>
+</html>

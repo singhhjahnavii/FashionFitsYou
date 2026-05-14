@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — FashionFitsYou</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <script src="../js/navbar.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/cart.js"></script>
+
+  <main class="page-content">
+    <div class="container">
+
+      <h1 class="cart-page-title">Shopping Cart <span id="cart-page-count" style="font-size:var(--text-lg);color:var(--color-ink-muted);font-family:var(--font-body);font-weight:400"></span></h1>
+
+      <div class="cart-layout" id="cart-page-layout">
+
+        <!-- Items column -->
+        <div>
+          <div class="cart-page-items" id="cart-page-items">
+            <!-- Populated by JS -->
+            <div class="skeleton" style="height:130px;border-radius:var(--radius-md);margin-bottom:var(--space-4)"></div>
+            <div class="skeleton" style="height:130px;border-radius:var(--radius-md);margin-bottom:var(--space-4)"></div>
+          </div>
+
+          <!-- Continue shopping -->
+          <div style="margin-top:var(--space-6)">
+            <a href="products.html" class="btn btn-ghost">← Continue Shopping</a>
+          </div>
+        </div>
+
+        <!-- Summary column -->
+        <div class="order-summary-card">
+          <h3>Order Summary</h3>
+
+          <!-- Coupon -->
+          <div>
+            <label class="form-label" style="margin-bottom:var(--space-2);display:block">Coupon Code</label>
+            <div class="coupon-row">
+              <input type="text" id="coupon-input" placeholder="Enter code" maxlength="20"
+                     style="text-transform:uppercase">
+              <button id="coupon-btn" class="btn btn-outline btn-sm">Apply</button>
+            </div>
+            <p id="coupon-msg" style="font-size:var(--text-xs);margin-top:var(--space-2);min-height:16px"></p>
+          </div>
+
+          <hr class="divider" style="margin:var(--space-2) 0">
+
+          <div class="summary-row"><span>Subtotal</span><span id="page-subtotal">₹0</span></div>
+          <div class="summary-row discount" id="page-discount-row" style="display:none">
+            <span>Coupon Discount</span><span id="page-discount">−₹0</span>
+          </div>
+          <div class="summary-row"><span>Shipping</span><span id="page-shipping">—</span></div>
+          <div class="summary-row total"><span>Total</span><span id="page-total">₹0</span></div>
+
+          <p style="font-size:var(--text-xs);color:var(--color-ink-muted)">
+            Free shipping on orders above ₹999. Inclusive of all taxes.
+          </p>
+
+          <a href="payment.html" class="btn btn-gold btn-full btn-lg" id="checkout-btn">
+            Proceed to Checkout →
+          </a>
+
+          <!-- Trust -->
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);margin-top:var(--space-2)">
+            <div style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-ink-muted)">
+              <span>🔒</span><span>Secure checkout via Razorpay</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);color:var(--color-ink-muted)">
+              <span>↩️</span><span>30-day hassle-free returns</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Empty state (hidden by default, shown by JS) -->
+      <div id="cart-empty" style="display:none">
+        <div class="empty-state" style="padding:var(--space-24) 0">
+          <div class="empty-state__icon">🛍️</div>
+          <p class="empty-state__title">Your cart is empty</p>
+          <p class="empty-state__text">Looks like you haven't added anything yet.</p>
+          <a href="products.html" class="btn btn-primary btn-lg mt-4">Start Shopping</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <span class="footer__logo">FashionFitsYou</span>
+          <span class="footer__tagline">Style. Fit. You.</span>
+        </div>
+        <div class="footer__col"><h4>Shop</h4><ul>
+          <li><a href="products.html?gender=men">Men</a></li>
+          <li><a href="products.html?gender=women">Women</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Help</h4><ul>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul></div>
+        <div class="footer__col"><h4>Account</h4><ul>
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="profile.html">Profile</a></li>
+        </ul></div>
+      </div>
+      <div class="footer__bottom"><span>© 2025 FashionFitsYou</span></div>
+    </div>
+  </footer>
+
+  <script>
+    let appliedCoupon = null;
+
+    function renderCartPage() {
+      const items   = cart.items;
+      const layout  = document.getElementById('cart-page-layout');
+      const empty   = document.getElementById('cart-empty');
+      const countEl = document.getElementById('cart-page-count');
+
+      countEl.textContent = items.length ? `(${cart.count} item${cart.count > 1 ? 's' : ''})` : '';
+
+      if (!items.length) {
+        layout.style.display = 'none';
+        empty.style.display  = 'block';
+        return;
+      }
+      layout.style.display = '';
+      empty.style.display  = 'none';
+
+      document.getElementById('cart-page-items').innerHTML = items.map(item => `
+        <div class="cart-page-item">
+          <img class="cart-page-item__img"
+               src="${item.image || 'https://placehold.co/100x130/f2f0eb/9a9690?text=FFY'}"
+               alt="${item.name}" loading="lazy">
+          <div class="cart-page-item__info">
+            <span class="cart-page-item__brand">${item.brand || ''}</span>
+            <a href="product-detail.html?slug=${item.slug}" class="cart-page-item__name">${item.name}</a>
+            <span class="cart-page-item__meta">
+              ${item.size ? `Size: <strong>${item.size}</strong>` : ''}
+              ${item.size && item.color ? ' &nbsp;·&nbsp; ' : ''}
+              ${item.color ? `Color: <strong>${item.color}</strong>` : ''}
+            </span>
+            <div class="cart-page-item__bottom">
+              <div class="qty-control">
+                <button onclick="cart.updateQty('${item.variantId}', ${item.quantity - 1})" aria-label="Decrease">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="cart.updateQty('${item.variantId}', ${item.quantity + 1})" aria-label="Increase">+</button>
+              </div>
+              <span class="cart-page-item__price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</span>
+              <button onclick="cart.remove('${item.variantId}')" class="btn btn-ghost btn-sm"
+                      style="color:var(--color-error)" aria-label="Remove">Remove</button>
+            </div>
+          </div>
+        </div>`).join('');
+
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const discount = appliedCoupon?.discount_amount || 0;
+      const subtotal = cart.subtotal;
+      const shipping = cart.shipping;
+      const total    = Math.max(0, subtotal - discount + shipping);
+
+      document.getElementById('page-subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+      document.getElementById('page-shipping').textContent = shipping === 0 ? 'FREE' : `₹${shipping}`;
+      document.getElementById('page-total').textContent    = `₹${total.toLocaleString('en-IN')}`;
+
+      const discountRow = document.getElementById('page-discount-row');
+      if (discount > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('page-discount').textContent = `−₹${discount.toLocaleString('en-IN')}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+
+    // Coupon
+    document.getElementById('coupon-btn').addEventListener('click', async () => {
+      const code = document.getElementById('coupon-input').value.trim();
+      const msg  = document.getElementById('coupon-msg');
+      const btn  = document.getElementById('coupon-btn');
+      if (!code) { msg.textContent = 'Enter a coupon code'; msg.style.color = 'var(--color-error)'; return; }
+      btn.disabled = true; btn.textContent = 'Applying…';
+      try {
+        appliedCoupon = await api.cart.validateCoupon(code, cart.subtotal);
+        msg.textContent = appliedCoupon.message;
+        msg.style.color = 'var(--color-success)';
+        document.getElementById('coupon-input').disabled = true;
+        btn.textContent = 'Applied ✓';
+        btn.style.background = 'var(--color-success)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--color-success)';
+        updateSummary();
+        // Store for payment page
+        sessionStorage.setItem('ffy_coupon', JSON.stringify(appliedCoupon));
+      } catch (e) {
+        msg.textContent = e.message; msg.style.color = 'var(--color-error)';
+        btn.disabled = false; btn.textContent = 'Apply';
+      }
+    });
+
+    // Re-render on cart changes
+    const origRender = cart._renderDrawer.bind(cart);
+    cart._renderDrawer = function() { origRender(); renderCartPage(); };
+
+    document.addEventListener('DOMContentLoaded', renderCartPage);
+  </script>
+
+</body>
+</html>
