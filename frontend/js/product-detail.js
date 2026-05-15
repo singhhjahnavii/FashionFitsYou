@@ -23,7 +23,7 @@ const productDetail = (() => {
           <div class="empty-state__icon">⚠️</div>
           <p class="empty-state__title">Product not found</p>
           <p class="empty-state__text">${e.message}</p>
-          <a href="products.html" class="btn btn-outline btn-sm mt-4">Back to Products</a>
+          <a href="/pages/products.html" class="btn btn-outline btn-sm mt-4">Back to Products</a>
         </div>`;
     }
   }
@@ -57,10 +57,10 @@ const productDetail = (() => {
         { label: 'Products', href: '/pages/products.html' },
       ];
       if (product.category?.parent) {
-        crumbs.push({ label: product.category.parent.name, href: `products.html?category=${product.category.parent.slug}` });
+        crumbs.push({ label: product.category.parent.name, href: `/pages/products.html?category=${product.category.parent.slug}` });
       }
       if (product.category) {
-        crumbs.push({ label: product.category.name, href: `products.html?category=${product.category.slug}` });
+        crumbs.push({ label: product.category.name, href: `/pages/products.html?category=${product.category.slug}` });
       }
       crumbs.push({ label: product.name });
       buildBreadcrumb(bc, crumbs);

@@ -60,9 +60,9 @@ const api = {
     ['ffy_token', 'ffy_refresh_token', 'ffy_user', 'ffy_cart'].forEach(k =>
       localStorage.removeItem(k)
     );
-    const pub = ['login.html', 'register.html', 'index.html'];
+    const pub = ['/pages/login.html', '/pages/register.html', '/pages/index.html'];
     const onPublic = pub.some(p => window.location.pathname.includes(p));
-    if (!onPublic) window.location.href = 'login.html';
+    if (!onPublic) window.location.href = '/pages/login.html';
   },
 
   get:    (path, opts)       => api.request('GET',    path, null, opts || {}),

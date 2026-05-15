@@ -41,15 +41,15 @@ const auth = {
   // Then tell the server (fire and forget)
   api.auth.logout().catch(() => {});
 
-  const pub = ['login.html', 'register.html', 'index.html', 'home.html', 'products.html'];
+  const pub = ['/pages/login.html', '/pages/register.html', '/pages/index.html', '/pages/home.html', '/pages/products.html'];
   const onPublic = pub.some(p => window.location.pathname.includes(p));
-  if (!onPublic) window.location.href = 'login.html';
+  if (!onPublic) window.location.href = '/pages/login.html';
   else window.location.reload();
 },
 
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = `login.html?return=${encodeURIComponent(window.location.href)}`;
+      window.location.href = `/pages/login.html?return=${encodeURIComponent(window.location.href)}`;
       return false;
     }
     return true;
@@ -102,7 +102,7 @@ async function handleLogin(e) {
     auth.setSession(data.token, data.refresh_token, data.user);
     toast.show(`Welcome back, ${data.user.full_name?.split(' ')[0] || ''}! 👋`, 'success');
     const ret = new URLSearchParams(window.location.search).get('return');
-    setTimeout(() => { window.location.href = ret ? decodeURIComponent(ret) : 'home.html'; }, 700);
+    setTimeout(() => { window.location.href = ret ? decodeURIComponent(ret) : '/pages/home.html'; }, 700);
   } catch (err) {
     showErr(errEl, err.message);
     btn.disabled = false;
@@ -134,7 +134,7 @@ async function handleRegister(e) {
       gender:    form.querySelector('[name=gender]')?.value,
     });
     toast.show('Account created! Please check your email to verify.', 'success');
-    setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+    setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
   } catch (err) {
     showErr(errEl, err.message);
     btn.disabled = false;

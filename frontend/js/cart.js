@@ -179,7 +179,7 @@ const cart = {
                alt="${item.name}" loading="lazy">
           <div class="cart-item__info">
             <span class="cart-item__brand">${item.brand || ''}</span>
-            <a href="<a href="/pages/product-detail.html?slug=${item.slug}"pages/product-detail.html?slug=${item.slug}" class="cart-item__name">${item.name}</a>
+            <a href="<a href="/pages/product-detail.html?slug=${item.slug}"/pages/product-detail.html?slug=${item.slug}" class="cart-item__name">${item.name}</a>
             <span class="cart-item__meta">
               ${item.size ? `Size: ${item.size}` : ''}
               ${item.size && item.color ? ' · ' : ''}

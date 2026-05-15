@@ -7,14 +7,13 @@
   const isRoot = window.location.pathname.endsWith('index.html')
               || window.location.pathname === '/'
               || window.location.pathname.endsWith('/');
-  const base = isRoot ? 'pages/' : '';
-
+  const base = '/pages/';
   const navbarHTML = `
   <nav class="navbar" id="main-navbar">
     <div class="container container--wide navbar__inner">
 
       <!-- Logo -->
-      <a href="${base}home.html" class="navbar__logo">
+      <a href="/pages/home.html" class="navbar__logo">
         <span class="navbar__logo-name">FashionFitsYou</span>
         <span class="navbar__logo-tagline">Style. Fit. You.</span>
       </a>
@@ -22,7 +21,7 @@
       <!-- Desktop Nav -->
       <nav class="navbar__nav">
         <div class="navbar__nav-item">
-          <a class="navbar__nav-link" href="${base}products.html?gender=men">
+          <a class="navbar__nav-link" href="/pages/products.html?gender=men">
             Men
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -30,40 +29,40 @@
             <div class="navbar__dropdown-col">
               <h4>Clothing</h4>
               <ul>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-shirts">Shirts</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-tshirts">T-Shirts</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-jeans">Jeans</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-jackets">Jackets</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-kurtas">Kurtas</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-clothing-shorts">Shorts</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-shirts">Shirts</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-tshirts">T-Shirts</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-jeans">Jeans</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-jackets">Jackets</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-kurtas">Kurtas</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-clothing-shorts">Shorts</a></li>
               </ul>
             </div>
             <div class="navbar__dropdown-col">
               <h4>Shoes & Bags</h4>
               <ul>
-                <li><a href="${base}products.html?gender=men&category=men-shoes-sneakers">Sneakers</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-shoes-formal">Formal Shoes</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-shoes-boots">Boots</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-bags-backpacks">Backpacks</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-bags-wallets">Wallets</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-bags-gym">Gym Bags</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-shoes-sneakers">Sneakers</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-shoes-formal">Formal Shoes</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-shoes-boots">Boots</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-bags-backpacks">Backpacks</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-bags-wallets">Wallets</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-bags-gym">Gym Bags</a></li>
               </ul>
             </div>
             <div class="navbar__dropdown-col">
               <h4>Watches & Accessories</h4>
               <ul>
-                <li><a href="${base}products.html?gender=men&category=men-watches-analog">Analog Watches</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-watches-smart">Smartwatches</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-accessories-belts">Belts</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-accessories-sunglasses">Sunglasses</a></li>
-                <li><a href="${base}products.html?gender=men&category=men-accessories-caps">Caps & Hats</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-watches-analog">Analog Watches</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-watches-smart">Smartwatches</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-accessories-belts">Belts</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-accessories-sunglasses">Sunglasses</a></li>
+                <li><a href="/pages/products.html?gender=men&category=men-accessories-caps">Caps & Hats</a></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="navbar__nav-item">
-          <a class="navbar__nav-link" href="${base}products.html?gender=women">
+          <a class="navbar__nav-link" href="/pages/products.html?gender=women">
             Women
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -71,43 +70,43 @@
             <div class="navbar__dropdown-col">
               <h4>Clothing</h4>
               <ul>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-dresses">Dresses</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-tops">Tops</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-kurtis">Kurtis</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-sarees">Sarees</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-jeans">Jeans</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-clothing-blazers">Blazers</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-dresses">Dresses</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-tops">Tops</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-kurtis">Kurtis</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-sarees">Sarees</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-jeans">Jeans</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-clothing-blazers">Blazers</a></li>
               </ul>
             </div>
             <div class="navbar__dropdown-col">
               <h4>Shoes & Bags</h4>
               <ul>
-                <li><a href="${base}products.html?gender=women&category=women-shoes-heels">Heels</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-shoes-flats">Flats</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-shoes-sneakers">Sneakers</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-bags-handbags">Handbags</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-bags-clutches">Clutches</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-bags-tote">Tote Bags</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-shoes-heels">Heels</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-shoes-flats">Flats</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-shoes-sneakers">Sneakers</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-bags-handbags">Handbags</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-bags-clutches">Clutches</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-bags-tote">Tote Bags</a></li>
               </ul>
             </div>
             <div class="navbar__dropdown-col">
               <h4>Watches & Accessories</h4>
               <ul>
-                <li><a href="${base}products.html?gender=women&category=women-watches-analog">Analog Watches</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-accessories-earrings">Earrings</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-accessories-necklaces">Necklaces</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-accessories-bracelets">Bracelets</a></li>
-                <li><a href="${base}products.html?gender=women&category=women-accessories-rings">Rings</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-watches-analog">Analog Watches</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-accessories-earrings">Earrings</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-accessories-necklaces">Necklaces</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-accessories-bracelets">Bracelets</a></li>
+                <li><a href="/pages/products.html?gender=women&category=women-accessories-rings">Rings</a></li>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="navbar__nav-item">
-          <a class="navbar__nav-link" href="${base}products.html?gender=kids">Kids</a>
+          <a class="navbar__nav-link" href="/pages/products.html?gender=kids">Kids</a>
         </div>
         <div class="navbar__nav-item">
-          <a class="navbar__nav-link" href="${base}products.html?tags=sale" style="color:var(--color-error)">Sale</a>
+          <a class="navbar__nav-link" href="/pages/products.html?tags=sale" style="color:var(--color-error)">Sale</a>
         </div>
       </nav>
 
@@ -123,7 +122,7 @@
 
       <!-- Actions -->
       <div class="navbar__actions">
-        <a href="${base}home.html" class="navbar__action-btn" title="Home">
+        <a href="/pages/home.html" class="navbar__action-btn" title="Home">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
             <polyline points="9 22 9 12 15 12 15 22"/>
@@ -131,7 +130,7 @@
         </a>
 
         <!-- Wishlist -->
-        <a href="${base}profile.html#wishlist" class="navbar__action-btn" title="Wishlist">
+        <a href="/pages/profile.html#wishlist" class="navbar__action-btn" title="Wishlist">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
@@ -159,11 +158,11 @@
             <div class="navbar__dropdown-col">
               <h4 data-auth-name>Account</h4>
               <ul>
-                <li><a href="${base}profile.html">My Profile</a></li>
-                <li><a href="${base}orders.html">My Orders</a></li>
-                <li><a href="${base}profile.html#wishlist">Wishlist</a></li>
+                <li><a href="/pages/profile.html">My Profile</a></li>
+                <li><a href="/pages/orders.html">My Orders</a></li>
+                <li><a href="/pages/profile.html#wishlist">Wishlist</a></li>
                 <li data-auth-account><a href="#" data-auth-logout>Sign Out</a></li>
-                <li data-auth-login><a href="${base}login.html">Sign In / Register</a></li>
+                <li data-auth-login><a href="/pages/login.html">Sign In / Register</a></li>
               </ul>
             </div>
           </div>
@@ -180,15 +179,15 @@
   <!-- Mobile menu -->
   <div class="navbar__mobile-menu">
     <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-      <a href="${base}products.html?gender=men" class="btn btn-ghost" style="justify-content:flex-start">Men</a>
-      <a href="${base}products.html?gender=women" class="btn btn-ghost" style="justify-content:flex-start">Women</a>
-      <a href="${base}products.html?gender=kids" class="btn btn-ghost" style="justify-content:flex-start">Kids</a>
-      <a href="${base}products.html?tags=sale" class="btn btn-ghost" style="justify-content:flex-start;color:var(--color-error)">Sale</a>
+      <a href="/pages/products.html?gender=men" class="btn btn-ghost" style="justify-content:flex-start">Men</a>
+      <a href="/pages/products.html?gender=women" class="btn btn-ghost" style="justify-content:flex-start">Women</a>
+      <a href="/pages/products.html?gender=kids" class="btn btn-ghost" style="justify-content:flex-start">Kids</a>
+      <a href="/pages/products.html?tags=sale" class="btn btn-ghost" style="justify-content:flex-start;color:var(--color-error)">Sale</a>
       <hr class="divider">
-      <a href="${base}orders.html" class="btn btn-ghost" style="justify-content:flex-start">My Orders</a>
-      <a href="${base}profile.html" class="btn btn-ghost" style="justify-content:flex-start">Profile</a>
+      <a href="/pages/orders.html" class="btn btn-ghost" style="justify-content:flex-start">My Orders</a>
+      <a href="/pages/profile.html" class="btn btn-ghost" style="justify-content:flex-start">Profile</a>
       <button data-auth-logout class="btn btn-ghost" style="justify-content:flex-start">Sign Out</button>
-      <a href="${base}login.html" data-auth-login class="btn btn-primary btn-sm">Sign In</a>
+      <a href="/pages/login.html" data-auth-login class="btn btn-primary btn-sm">Sign In</a>
     </div>
   </div>
 
@@ -207,8 +206,8 @@
       <div class="cart-summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0</span></div>
       <div class="cart-summary-row"><span>Shipping</span><span id="cart-shipping">—</span></div>
       <div class="cart-summary-row total"><span>Total</span><span id="cart-total">₹0</span></div>
-      <a href="${base}cart.html" class="btn btn-outline btn-full">View Cart</a>
-      <a href="${base}payment.html" class="btn btn-gold btn-full">Checkout</a>
+      <a href="/pages/cart.html" class="btn btn-outline btn-full">View Cart</a>
+      <a href="/pages/payment.html" class="btn btn-gold btn-full">Checkout</a>
     </div>
   </aside>
 

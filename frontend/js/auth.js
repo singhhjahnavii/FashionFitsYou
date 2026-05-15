@@ -41,7 +41,7 @@ const auth = {
   // Then tell the server (fire and forget)
   api.auth.logout().catch(() => {});
 
-  const pub = ['login.html', 'register.html', 'index.html', 'home.html', 'products.html'];
+  const pub = ['/pages/login.html', '/pages/register.html', '/pages/index.html', '/pages/home.html', '/pages/products.html'];
   const onPublic = pub.some(p => window.location.pathname.includes(p));
   if (!onPublic) window.location.href = '/pages/login.html';  else window.location.reload();
 },
@@ -132,7 +132,7 @@ async function handleRegister(e) {
       gender:    form.querySelector('[name=gender]')?.value,
     });
     toast.show('Account created! Please check your email to verify.', 'success');
-    setTimeout(() => { window.location.href = 'login.html'; }, 1500);
+    setTimeout(() => { window.location.href = '/pages/login.html'; }, 1500);
   } catch (err) {
     showErr(errEl, err.message);
     btn.disabled = false;
