@@ -7,7 +7,7 @@
   const isRoot = window.location.pathname.endsWith('index.html')
               || window.location.pathname === '/'
               || window.location.pathname.endsWith('/');
-  const base = isRoot ? 'frontend/pages/' : '';
+  const base = isRoot ? 'pages/' : '';
 
   const navbarHTML = `
   <nav class="navbar" id="main-navbar">

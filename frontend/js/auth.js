@@ -43,8 +43,7 @@ const auth = {
 
   const pub = ['login.html', 'register.html', 'index.html', 'home.html', 'products.html'];
   const onPublic = pub.some(p => window.location.pathname.includes(p));
-  if (!onPublic) window.location.href = 'login.html';
-  else window.location.reload();
+  if (!onPublic) window.location.href = '/pages/login.html';  else window.location.reload();
 },
 
   requireAuth() {
@@ -102,8 +101,7 @@ async function handleLogin(e) {
     auth.setSession(data.token, data.refresh_token, data.user);
     toast.show(`Welcome back, ${data.user.full_name?.split(' ')[0] || ''}! 👋`, 'success');
     const ret = new URLSearchParams(window.location.search).get('return');
-    setTimeout(() => { window.location.href = ret ? decodeURIComponent(ret) : 'home.html'; }, 700);
-  } catch (err) {
+    setTimeout(() => { window.location.href = ret ? decodeURIComponent(ret) : '/pages/home.html'; }, 700);  } catch (err) {
     showErr(errEl, err.message);
     btn.disabled = false;
     btn.textContent = 'Sign In';

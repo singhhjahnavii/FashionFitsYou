@@ -182,7 +182,7 @@ function renderProductCard(product) {
   const isWishlisted = wishlist.has(product.id);
 
   return `
-    <div class="product-card" onclick="window.location='../pages/product-detail.html?slug=${product.slug}'">
+    <div class="product-card" onclick="window.location='pages/product-detail.html?slug=${product.slug}'">
       <div class="product-card__image-wrap">
         <img class="product-card__image"
              src="${primary?.url || 'https://placehold.co/300x400/f2f0eb/9a9690?text=FFY'}"
@@ -271,10 +271,10 @@ async function quickAdd(slug) {
         price:     fmt.discountedPrice(product.base_price + (v.price_adjustment || 0), product.discount_percent),
       });
     } else {
-      window.location.href = `../pages/product-detail.html?slug=${slug}`;
+      window.location.href = `pages/product-detail.html?slug=${slug}`;
     }
   } catch {
-    window.location.href = `../pages/product-detail.html?slug=${slug}`;
+    window.location.href = `pages/product-detail.html?slug=${slug}`;
   }
 }
 
@@ -340,7 +340,7 @@ function initSearch() {
       results.innerHTML = data.products.map(p => {
         const img = p.images?.find(i => i.is_primary)?.url || p.images?.[0]?.url;
         return `<div class="search-result-item"
-                     onclick="window.location='../pages/product-detail.html?slug=${p.slug}'">
+                     onclick="window.location='pages/product-detail.html?slug=${p.slug}'">
           <img class="search-result-img"
                src="${img || 'https://placehold.co/48x48/f2f0eb/9a9690?text=F'}"
                alt="${p.name}" loading="lazy">
@@ -357,7 +357,7 @@ function initSearch() {
   input.addEventListener('input', e => doSearch(e.target.value.trim()));
   input.addEventListener('keydown', e => {
     if (e.key === 'Enter' && input.value.trim()) {
-      window.location.href = `../pages/products.html?search=${encodeURIComponent(input.value.trim())}`;
+      window.location.href = `pages/products.html?search=${encodeURIComponent(input.value.trim())}`;
     }
   });
   document.addEventListener('click', e => {
