@@ -52,8 +52,8 @@
         </div>
 
         <div class="confirmation-actions">
-          <a href="orders.html" class="btn btn-outline">Track Order</a>
-          <a href="products.html" class="btn btn-primary">Continue Shopping</a>
+          <a href="/pages/orders.html" class="btn btn-outline">Track Order</a>
+          <a href="/pages/products.html" class="btn btn-primary">Continue Shopping</a>
         </div>
 
       </div>
@@ -84,7 +84,7 @@
 
       // Link order tracking
       if (id) {
-        document.querySelector('a[href="orders.html"]').href = `orders.html?id=${id}`;
+        document.querySelector('a[href="/pages/orders.html"]').href = `/pages/orders.html?id=${id}`;
       }
 
       // Clear coupon from session

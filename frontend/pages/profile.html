@@ -33,7 +33,7 @@
             <button class="profile-nav-link active" data-tab="details" onclick="showTab('details', this)">👤 Personal Details</button>
             <button class="profile-nav-link"        data-tab="addresses" onclick="showTab('addresses', this)">📍 Saved Addresses</button>
             <button class="profile-nav-link"        data-tab="wishlist"  onclick="showTab('wishlist', this)">❤️ Wishlist</button>
-            <button class="profile-nav-link"        onclick="window.location.href='orders.html'">📦 My Orders</button>
+            <button class="profile-nav-link"        onclick="window.location.href='/pages/orders.html'">📦 My Orders</button>
             <button class="profile-nav-link" style="color:var(--color-error)" data-auth-logout>🚪 Sign Out</button>
           </nav>
         </aside>
@@ -113,9 +113,9 @@
     <div class="container">
       <div class="footer__grid">
         <div><span class="footer__logo">FashionFitsYou</span><span class="footer__tagline">Style. Fit. You.</span></div>
-        <div class="footer__col"><h4>Shop</h4><ul><li><a href="products.html?gender=men">Men</a></li><li><a href="products.html?gender=women">Women</a></li></ul></div>
+        <div class="footer__col"><h4>Shop</h4><ul><li><a href="/pages/products.html?gender=men">Men</a></li><li><a href="/pages/products.html?gender=women">Women</a></li></ul></div>
         <div class="footer__col"><h4>Help</h4><ul><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li></ul></div>
-        <div class="footer__col"><h4>Account</h4><ul><li><a href="orders.html">Orders</a></li></ul></div>
+        <div class="footer__col"><h4>Account</h4><ul><li><a href="/pages/orders.html">Orders</a></li></ul></div>
       </div>
       <div class="footer__bottom"><span>© 2025 FashionFitsYou</span></div>
     </div>
@@ -312,7 +312,7 @@
             <div class="empty-state__icon">❤️</div>
             <p class="empty-state__title" style="font-size:var(--text-xl)">Nothing saved yet</p>
             <p class="empty-state__text">Heart products while browsing to save them here</p>
-            <a href="products.html" class="btn btn-primary btn-sm mt-4">Browse Products</a>
+            <a href="/pages/products.html" class="btn btn-primary btn-sm mt-4">Browse Products</a>
           </div>`;
           return;
         }

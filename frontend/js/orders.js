@@ -37,7 +37,7 @@ const ordersPage = (() => {
             <div class="empty-state__icon">📦</div>
             <p class="empty-state__title">No orders yet</p>
             <p class="empty-state__text">Once you place an order, it will appear here.</p>
-            <a href="products.html" class="btn btn-primary btn-sm mt-4">Start Shopping</a>
+            <a href="/pages/products.html" class="btn btn-primary btn-sm mt-4">Start Shopping</a>
           </div>`;
         return;
       }
@@ -70,7 +70,7 @@ const ordersPage = (() => {
     const extraItems  = itemCount - 1;
 
     return `
-      <div class="order-card" onclick="window.location='orders.html?id=${order.id}'">
+      <div class="order-card" onclick="window.location='/pages/orders.html?id=${order.id}'">
         <div class="order-card__header">
           <div>
             <span class="order-card__number">${order.order_number}</span>
@@ -224,7 +224,7 @@ const ordersPage = (() => {
         <div class="empty-state__icon">⚠️</div>
         <p class="empty-state__title">Could not load order</p>
         <p class="empty-state__text">${e.message}</p>
-        <a href="orders.html" class="btn btn-outline btn-sm mt-4">Back to Orders</a>
+        <a href="/pages/orders.html" class="btn btn-outline btn-sm mt-4">Back to Orders</a>
       </div>`;
     }
   }

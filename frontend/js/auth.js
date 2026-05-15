@@ -48,7 +48,7 @@ const auth = {
 
   requireAuth() {
     if (!this.isLoggedIn()) {
-      window.location.href = `login.html?return=${encodeURIComponent(window.location.href)}`;
+      window.location.href = `/pages/login.html?return=${encodeURIComponent(window.location.href)}`;
       return false;
     }
     return true;

@@ -35,7 +35,7 @@
 
           <!-- Continue shopping -->
           <div style="margin-top:var(--space-6)">
-            <a href="products.html" class="btn btn-ghost">← Continue Shopping</a>
+            <a href="/pages/products.html" class="btn btn-ghost">← Continue Shopping</a>
           </div>
         </div>
 
@@ -90,7 +90,7 @@
           <div class="empty-state__icon">🛍️</div>
           <p class="empty-state__title">Your cart is empty</p>
           <p class="empty-state__text">Looks like you haven't added anything yet.</p>
-          <a href="products.html" class="btn btn-primary btn-lg mt-4">Start Shopping</a>
+          <a href="/pages/products.html" class="btn btn-primary btn-lg mt-4">Start Shopping</a>
         </div>
       </div>
 
@@ -113,8 +113,8 @@
           <li><a href="#">Contact</a></li>
         </ul></div>
         <div class="footer__col"><h4>Account</h4><ul>
-          <li><a href="orders.html">Orders</a></li>
-          <li><a href="profile.html">Profile</a></li>
+          <li><a href="/pages/orders.html">Orders</a></li>
+          <li><a href="/pages/profile.html">Profile</a></li>
         </ul></div>
       </div>
       <div class="footer__bottom"><span>© 2025 FashionFitsYou</span></div>
@@ -147,7 +147,7 @@
                alt="${item.name}" loading="lazy">
           <div class="cart-page-item__info">
             <span class="cart-page-item__brand">${item.brand || ''}</span>
-            <a href="product-detail.html?slug=${item.slug}" class="cart-page-item__name">${item.name}</a>
+            <a href="/pages/product-detail.html?slug=${item.slug}" class="cart-page-item__name">${item.name}</a>
             <span class="cart-page-item__meta">
               ${item.size ? `Size: <strong>${item.size}</strong>` : ''}
               ${item.size && item.color ? ' &nbsp;·&nbsp; ' : ''}

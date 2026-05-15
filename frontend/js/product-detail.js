@@ -11,7 +11,7 @@ const productDetail = (() => {
   // ── Init ──────────────────────────────────────────────────
   async function init() {
     const slug = params.get('slug');
-    if (!slug) { window.location.href = 'products.html'; return; }
+    if (!slug) { window.location.href = '/pages/products.html'; return; }
 
     showSkeleton();
     try {
@@ -53,8 +53,8 @@ const productDetail = (() => {
     const bc = document.getElementById('breadcrumb');
     if (bc) {
       const crumbs = [
-        { label: 'Home',     href: 'home.html' },
-        { label: 'Products', href: 'products.html' },
+        { label: 'Home',     href: '/pages/home.html' },
+        { label: 'Products', href: '/pages/products.html' },
       ];
       if (product.category?.parent) {
         crumbs.push({ label: product.category.parent.name, href: `products.html?category=${product.category.parent.slug}` });
@@ -311,7 +311,7 @@ const productDetail = (() => {
   async function buyNow() {
     await addToCart();
     if (cart.items.length > 0) {
-      window.location.href = 'cart.html';
+      window.location.href = '/pages/cart.html';
     }
   }
 
@@ -402,7 +402,7 @@ const productDetail = (() => {
 
       ${auth.isLoggedIn() ? renderReviewForm() : `
         <p style="margin-top:var(--space-8);font-size:var(--text-sm);color:var(--color-ink-secondary)">
-          <a href="login.html" style="color:var(--color-gold);text-decoration:underline">Sign in</a> to write a review.
+          <a href="/pages/login.html" style="color:var(--color-gold);text-decoration:underline">Sign in</a> to write a review.
         </p>`}`;
   }
 

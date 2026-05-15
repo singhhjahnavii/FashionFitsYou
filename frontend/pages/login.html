@@ -17,7 +17,7 @@
     <div class="auth-visual">
       <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=80" alt="Fashion" loading="lazy">
       <div class="auth-visual__content">
-        <a href="../index.html" class="auth-visual__logo">FashionFitsYou</a>
+        <a href="/index.html" class="auth-visual__logo">FashionFitsYou</a>
         <span class="auth-visual__tagline">Style. Fit. You.</span>
         <p class="auth-visual__quote">"Fashion is the armour to survive the reality of everyday life."</p>
       </div>
@@ -72,12 +72,12 @@
 
   <script src="../js/api.js"></script>
   <script src="../js/auth.js"></script>
-  <script src="../js/cart.js"></script>
   <script src="../js/utils.js"></script>
+
   <script>
     // Redirect if already logged in
     document.addEventListener('DOMContentLoaded', () => {
-      if (auth.isLoggedIn()) window.location.href = 'home.html';
+      if (auth.isLoggedIn()) window.location.href = '/pages/home.html';
     });
     function togglePwd(id, btn) {
       const el = document.getElementById(id);
