@@ -2,7 +2,7 @@
    api.js — Fetch wrapper for all FashionFitsYou backend calls
    ============================================================ */
 
-const API_BASE = 'https://fashionfitsyou-backend.onrender.com/api';
+const API_BASE = 'https://fashionfitsyou.onrender.com/api';
 const api = {
 
   // ── Core ──────────────────────────────────────────────────
